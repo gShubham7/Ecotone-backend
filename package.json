@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.32.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
@@ -24,7 +25,6 @@
     "passport-twitter": "^1.0.4"
   },
   "devDependencies": {
-    "dotenv": "^16.0.3",
     "nodemon": "^2.0.20"
   }
 }
