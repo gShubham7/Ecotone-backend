@@ -19,7 +19,7 @@ const all = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const token = req.headers.authorization;
-  const { _id } = req.params; 
+  const { _id } = req.params;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const admin = await UserModel.findById(decoded._id);
@@ -362,9 +362,8 @@ const editPost = async (req, res) => {
 //delete the post...................
 const deletePost = async (req, res) => {
   const { _id, channel } = req.params;
-  console.log(_id, channel);
   const token = req.headers.authorization;
-  console.log(token);
+  console.log(channel, _id);
   let flag = false;
   let index;
   try {
@@ -382,10 +381,19 @@ const deletePost = async (req, res) => {
       index = user.facebook_posts.indexOf(_id);
       flag =
         user.instagram_posts.includes(_id) || user.linkedin_posts.includes(_id);
+      user.facebook_posts.splice(index, 1);
+    } else if (channel === "instagram_posts") {
+      index = user.instagram_posts.indexOf(_id);
+      flag =
+        user.facebook_posts.includes(_id) || user.linkedin_posts.includes(_id);
+      user.instagram_posts.splice(index, 1);
+    } else if (channel === "linkedin_posts") {
+      index = user.linkedin_posts.indexOf(_id);
+      flag =
+        user.facebook_posts.includes(_id) || user.instagram_posts.includes(_id);
+      user.linkedin_posts.splice(index, 1);
     }
-    user.facebook_posts.splice(index, 1);
     await user.save();
-    console.log(user);
     // if (post.cloudinaryId) {
     //   cloudinary.uploader.destroy(post.cloudinaryId, (err, result) => {
     //     if (err) {
