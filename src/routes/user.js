@@ -14,11 +14,15 @@ const {
   createPost,
   editPost,
   deletePost,
+  deletePostAdmin
 } = require("../controllers/user.controller");
-
+//admin routes......................
 Router.get("/all", all);
 
 Router.delete("/deleteuser/:_id", deleteUser);
+
+Router.delete("/deletepost/:_id", deletePostAdmin);
+//..........................................
 
 //profile of the particular user......................
 Router.post("/profile", profile);

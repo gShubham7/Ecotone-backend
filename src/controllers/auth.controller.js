@@ -60,9 +60,13 @@ const login = async (req, res) => {
     if (!result) {
       return res.status(401).send({ error: "Invalid credentials" });
     }
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "6h",
-    });
+    const token = jwt.sign(
+      { _id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "6h",
+      }
+    );
     return res.status(200).send({ token });
   });
 };
