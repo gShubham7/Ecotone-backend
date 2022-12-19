@@ -60,7 +60,7 @@ const profile = async (req, res) => {
 
 //all posts displayed........
 const posts = async (req, res) => {
-  const { token } = req.headers.authorization;
+  const token = req.headers.authorization;
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
