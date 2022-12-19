@@ -423,19 +423,23 @@ const deletePostAdmin = async (req, res) => {
   const token = req.headers.authorization;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
     if (!decoded.role === "Admin") {
       return res
         .status(403)
         .send({ message: "Yor are not allowed tot do this operation" });
     }
-    const post = await PostModel.findOne({ _id });
-    const user = await UserModel.findOne({ author_id: post.author_id });
 
-    user.facebook_posts = user.facebook_posts.filter((el) => el._id !== _id);
-    user.instagram_posts = user.instagram_posts.filter((el) => el._id !== _id);
-    user.linkedin_posts = user.linkedin_posts.filter((el) => el._id !== _id);
+    const post = await PostModel.findById(_id);
+    const user = await UserModel.findOne({ _id: post.author_id });
+
+    user.facebook_posts = user.facebook_posts.filter((el) => el != _id);
+    user.instagram_posts = user.instagram_posts.filter((el) => el != _id);
+    user.linkedin_posts = user.linkedin_posts.filter((el) => el != _id);
+
     await user.save();
     await post.remove();
+    res.status(200).send({ message: "Post deleted successfully" });
   } catch (err) {
     return res.status(401).send({ message: "Unauthorized" });
   }
