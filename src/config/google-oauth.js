@@ -12,7 +12,7 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-Router.use(cors({ origin: `http://localhost:3000`, credentials: true }));
+Router.use(cors({ origin: `https://u6project.netlify.app`, credentials: true }));
 
 Router.use(
   session({
@@ -43,7 +43,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: `/auth/google/callback`,
+      callbackURL: `https://u6project.netlify.app/auth/google/callback`,
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, cb) {
@@ -88,10 +88,10 @@ Router.get(
 Router.get(
   "/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000",
+    failureRedirect: "https://u6project.netlify.app/",
   }),
   function (req, res) {
-    res.redirect("http://localhost:3000/publishing");
+    res.redirect("https://u6project.netlify.app/publishing");
   }
 );
 
