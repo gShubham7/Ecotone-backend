@@ -43,7 +43,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: `https://u6project.netlify.app/auth/google/callback`,
+      callbackURL: `https://mauve-rabbit-gown.cyclic.app/auth/google/callback`,
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, cb) {
